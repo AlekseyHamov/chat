@@ -1,0 +1,70 @@
+	<!-- IF not S_IS_BOT -->
+	<!-- IF S_USER_LOGGED_IN -->
+	<!-- INCLUDECSS chat.css -->
+
+	<script>
+		function showonloadchat(){
+			if (localStorage.getItem('statusdivchat')!==null)
+			{
+				statusdivchat=localStorage.getItem('statusdivchat');
+				if ( statusdivchat=="show") {
+						testDiv();
+					} else {hideShowDivChat();};			
+			} else {hideShowDivChat();};
+		}
+		document.addEventListener("DOMContentLoaded", showonloadchat);
+	</script>
+
+		<div id="minichat_window_mesage" class="minichat_window_mesage" onclick="testDiv();" style="overflow-y: scroll; display: none;"> 
+				<div id="usersmini" class="usersmini" ></div>
+		</div>	
+		<div id="minichat" class="minichat" onclick="testDiv();" > 
+		<span class="innerchat">{L_CHAT}</span>
+		</div>
+		
+		<div id="draggable" class="chat_chat" style="display: none;">
+			<div id ="contentr" >
+				<div class="headercaht">
+					<div onclick="ShowChatMenu();" class="inner_head_chat_menu " >
+					<img style="height: inherit;" src="./ext/aleksey/chat/media/menu_icon.png" title="{L_MENU}" alt="{L_MENU}"/>	
+						<div id="chat_menu" class="chat_menu">
+							<span onclick="WriteColorTable(5, 180, 3);">{L_COLORCHAT}</span></br>
+							<div id= "color_div" style="display: none"></div>
+							<span>{L_SOUND} <a id="btn-sound" title="{L_SOUND}" href="#" class="btn-link" style="background-image: url('./ext/aleksey/chat/media/sound.png');"></a>							
+							</span></br>
+						</div>
+					</div>
+					<div class="inner_head_chat">{SITENAME}</div>
+					<div onclick="hideShowDivChat();" class="inner_head_chat" style="width:10px;text-align:end; padding-right: 12px; float: right; cursor: pointer;" ><b>{L_X}</b>
+					</div>
+				</div>																				
+				<div id="main" class="main" ></div>
+				<div id="users" class="users" ></div>
+				<div id="chatbro_send"  class="chatbro_send">
+					<div class="chatbro_send_text">
+						<textarea id="message_chat" name="comment" cols="40" maxrows="2" maxlength="250" style="border-radius: 3px; width: 100%;"></textarea>
+					</div>
+					<div id="chatbro_send_icon" class="chatbro_send_icon" >
+						<div onclick="ShowSmilies();" class="inner_head_chat_menu " >
+						<img style="height: 15px;" src="./ext/aleksey/chat/media/smilies/smiley.gif" title="{L_MENU}" alt="{L_MENU}"/>	
+							<div id="tagCloudContainer" style="font-size: 84%">
+								<canvas width="150" height="150" id="3d_tagCloud"></canvas>
+							</div>
+							<div id="tagCloud" style="display: none">
+							</div>
+						</div>
+						<img id="icon-loading" style="display: block;" width="16px" height="16px" src="./ext/aleksey/chat/media/loading.gif" title="{L_UPDATING}" alt="{L_UPDATING}" />
+						<img id="icon-error" style="display: none;" width="16px" height="16px" src="./ext/aleksey/chat/media/error.gif" title="{L_SERVER_ERROR}" alt="{L_SERVER_ERROR}" />
+						<img id="icon-sending" style="display: none;" width="16px" height="16px" src="./ext/aleksey/chat/media/sending.gif" title="{L_SENDING}" alt="{L_SENDING}" />
+					</div>
+					<div class="chatbro_send_btn">
+						<a id="btn-send-chat" href="#">{L_SAY}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<audio id="audio-notify" preload><source src="./ext/aleksey/chat/media/event.ogg" type='audio/ogg; codecs=vorbis'><source src="./ext/aleksey/chat/media/event.mp3" type="audio/mpeg"></audio>
+		<div id="result_div" style="display:none"></div>
+
+	<!-- ENDIF -->
+	<!-- ENDIF -->	

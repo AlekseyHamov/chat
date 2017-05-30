@@ -1,0 +1,19 @@
+<!-- INCLUDE overall_header.html -->
+<h1>{L_ACP_CHAT}</h1>
+<p>{L_ACP_CHAT_EXPLAIN}</p>
+<form id="acp_chat" method="post" action="{U_ACTION}">
+   <fieldset>
+      <dl>
+         <dt><label for="before_day">{L_ACP_CHAT_COLPROFILE}</label></dt>
+		 <p>{L_ACP_CHAT_PRIMER}</p>
+         <dd><input name="chat_day" type="text" value="{CHAT_DAY}"></dd>
+		 <dt><label for="chat_day">{L_ACP_ACTIVE_DAY}</label></dt>
+      </dl>
+      <p class="submit-buttons">
+         <input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+         <input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+      </p>
+      {S_FORM_TOKEN}
+   </fieldset>
+</form>
+<!-- INCLUDE overall_footer.html -->

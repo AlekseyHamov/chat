@@ -1,0 +1,29 @@
+services:
+    aleksey.chat.controller:
+        class: aleksey\chat\controller\chat
+        arguments:
+            - @request
+            - @pagination
+            - @dbal.conn
+            - @auth
+            - @template
+            - @user
+            - @controller.helper
+            - %core.root_path%
+            - %core.php_ext%
+            - %core.table_prefix%
+    aleksey.chat.listener:
+        class: aleksey\chat\event\listener
+        arguments:
+            - @request
+            - @dbal.conn
+            - @auth
+            - @user
+            - @config
+            - @config_text
+            - @template
+            - %core.root_path%
+            - %core.table_prefix%
+            - %core.php_ext%
+        tags:
+            - { name: event.listener }

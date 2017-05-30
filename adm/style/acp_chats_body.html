@@ -1,0 +1,20 @@
+<!-- INCLUDE overall_header.html -->
+<h1>{L_ACP_BIRTHDAYS}</h1>
+<p>{L_ACP_BIRTHDAYS_EXPLAIN}</p>
+<form id="acp_birthdays" method="post" action="{U_ACTION}">
+   <fieldset>
+      <dl>
+         <dt><label for="before_day">{L_ACP_BIRTHDAYS_COLPROFILE}</label></dt>
+		 <p>{L_ACP_BIRTHDAYS_PRIMER}</p>
+         <dd><input name="before_day" type="text" value="{BEFORE_DAY}"></dd>
+		 <dt><label for="before_day">{L_ACP_ACTIVE_DAY}</label></dt>
+		 <dd><input name="active_post_begin_day" type="text" value="{ACTIVE_POST_DAY}"></dd>
+      </dl>
+      <p class="submit-buttons">
+         <input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+         <input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+      </p>
+      {S_FORM_TOKEN}
+   </fieldset>
+</form>
+<!-- INCLUDE overall_footer.html -->

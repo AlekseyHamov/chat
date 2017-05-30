@@ -1,0 +1,28 @@
+{
+	"name": "aleksey/chat",
+	"type": "phpbb-extension",
+	"description": "Чат",
+	"homepage": "http://hover-club-omsk.ru",
+	"version": "0.1.0",
+	"time": "2017-01-09",
+	"license": "GPL-2.0",
+	"authors": [{
+			"name": "Aleksey",
+			"homepage": "http://hover-club-omsk.ru",
+			"role": "Developer"
+		}],
+	"require": {
+		"php": ">=5.3.3"
+	},
+	"extra": {
+      "display-name": "Чат",
+      "soft-require": {
+         "phpbb/phpbb": ">=3.2.x"
+      },
+		 "version-check": {
+            "host": "hover-club-omsk.ru",
+            "directory": "/versions",
+            "filename": "chat.json"
+        }
+   }
+}

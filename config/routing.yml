@@ -1,0 +1,3 @@
+aleksey_chat_controller:
+    pattern: /chat
+    defaults: { _controller: aleksey.chat.controller:main }
