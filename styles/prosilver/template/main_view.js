@@ -46,11 +46,11 @@ function testDiv(){
 		var elm = document.getElementsByClassName('chat_chat');
 		for (i = 0; i < elm.length; i++) {
 			elm[i].style.position='fixed';
-			if (localStorage.getItem('dtop') !== null)
+			if (localStorage.getItem('dtop') !== null && localStorage.getItem('dtop')>0 && localStorage.getItem('dtop')< Math.max(window.innerHeight,0)-50)
 			{
 				elm[i].style.top= Math.max(localStorage.getItem('dtop')) + 'px';
 			}else{elm[i].style.top= HeightPos + 'px';}
-			if (localStorage.getItem('dleft') !== null)
+			if (localStorage.getItem('dleft') !== null && localStorage.getItem('dleft')>0 && localStorage.getItem('dleft')< Math.max(window.innerWidth,0)-30)
 			{
 				elm[i].style.left= Math.max(localStorage.getItem('dleft')) + 'px';
 			}else{elm[i].style.left= '5px';}

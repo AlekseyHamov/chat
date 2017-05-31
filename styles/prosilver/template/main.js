@@ -347,20 +347,25 @@ MessageEdit =
 	Smilie: function(s, sid)
 	{
 		var $smilieclone = $("#smilie"+sid);
+		var toppoz= Math.round($('#smilie'+sid).offset().top);
+		var Message = $("#message_chat").val();
 		$smilieclone.show();
+		$smilieclone.offset({top:(toppoz-150)});
 		$smilieclone.height("70px");
 		$smilieclone.width("70px");
 		$smilieclone.clone().insertAfter("#tagCloudContainer").prop('id', 'smilie_clone');
 		$('#smilie_clone').show();
 		$("#smilie_clone").animate({
-			left: "-500px",
-			height:"30px",
-			width:"30px", 	
-		}, 2000,function() {$(this).remove();}
+			left: "-"+$("#message_chat").width(),
+			top: (toppoz),
+			height:"5px",
+			width: "5px", 	
+		}, 1700,function() {
+			$("#message_chat").val(Message+" "+s).focus();
+			$("#message_chat").focus();
+			$(this).remove();
+		}
 		);
-		var Message = $("#message_chat").val();
-		$("#message_chat").val(Message+" "+s).focus();
-		$("#message_chat").focus();
 	},
 	SendClick: function()
 	{
