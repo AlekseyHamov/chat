@@ -1,16 +1,20 @@
 // Function hide 
-function hideAllChat(){
-		$('#draggable').hide();
-		$('#minichat').hide();
-}
-
 function hideShowDivChat(){
 		var dleft = 0;
 		var dtop = 0;
-		$('.chat_chat').hide();
+		$(".chat_chat").animate({
+			left: "10px", 	
+			top: "90%",
+			height:"40px",
+			width:"40px",
+		}, 600);
+		$('.chat_chat').hide(700);
 		$('#minichat').show();
 		localStorage.setItem('statusdivchat', 'hide');
 		SetDelay(null);
+		$('#chat_menu').hide();
+		$('#color_div').hide();
+		$('#tagCloudContainer').hide();
 }
 function ShowChatMenu(){
 		$('#chat_menu').toggle();
@@ -34,6 +38,7 @@ function testDiv(){
 			elm[i].style.top= '10px';
 			elm[i].style.left= '5px';
 		}
+		$('#inner_head_chat_close').width('30px'); 
 	}else 
 	{
 		$('#draggable').height('350px');
