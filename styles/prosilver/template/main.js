@@ -241,12 +241,12 @@ function SetUserMini(users)
 	for(var i = 0; i < users.length; i++)
 	{
 		var html ="";
-		html +="<span >Активировался "+addslashes(users[i].name)+"</span>\n";
+		html +="<span >Активирован в чате "+addslashes(users[i].name)+"</span>\n";
 		$("#usersmini").append("<div>"+html+"</div>");
 		localStorage.setItem('lastuseractiv', users[i].lastuser);
 
 	}
-	Sound.Play('notify');
+//	Sound.Play('notify');
 }
 
 var ChatDelay = 15;			// Refresh speed
@@ -344,8 +344,20 @@ MessageEdit =
 		}
 		$("#message_chat").val(this.AddressTo + Message).focus();
 	},
-	Smilie: function(s)
+	Smilie: function(s, sid)
 	{
+		var $smilieclone = $("#smilie"+sid);
+		$smilieclone.show();
+		$smilieclone.height("70px");
+		$smilieclone.width("70px");
+		$smilieclone.clone().insertAfter("#tagCloudContainer").prop('id', 'smilie_clone');
+		$('#smilie_clone').show();
+		$("#smilie_clone").animate({
+			left: "-500px",
+			height:"30px",
+			width:"30px", 	
+		}, 2000,function() {$(this).remove();}
+		);
 		var Message = $("#message_chat").val();
 		$("#message_chat").val(Message+" "+s).focus();
 		$("#message_chat").focus();
