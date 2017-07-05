@@ -10,13 +10,21 @@ function ShowIcon(name)
 }
 
 var InProgress	= false;
-var LastUpdate	= 0;
+var LastUpdate ;
 var NewMessages	= false;
 var UpdateCount	= 0;
 var lastuseractiv = 0;
 
 function RefreshChat()
 {
+	if (sessionStorage.getItem('LastUpdate') !== null)
+	{
+		LastUpdate=sessionStorage.getItem('LastUpdate');
+	}else 
+	{
+		LastUpdate	= 0;
+	}
+	
 	//if(InProgress) return;
 	//InProgress = true;
 	ShowIcon("loading");
@@ -26,10 +34,10 @@ function RefreshChat()
 		scrolold = $('#main').scrollTop() ;
 		localStorage.setItem('scrolold', scrolold);
 	}else scrolold = 9999999;
-	if (localStorage.getItem('scrolold') !== null)
-		{
-			scrolold= Math.round(localStorage.getItem('scrolold'));
-		}
+	if (localStorage.getItem('scrolold') !== null && localStorage.getItem('scrolold')>0)
+	{
+		scrolold= Math.round(localStorage.getItem('scrolold'));
+	}
 //	alert("вход в рефреш"+scrolold);
 	$.ajax({
 		type: 		"POST",
@@ -134,17 +142,27 @@ function SendMessage(text, color)
 		ShowIcon("error");
 	});
 }
-function SetLastId(lastid)
+function SetLastId(lastid,Messages)
 {
+	$("#main").append(Messages);
+	$('#contentr').append($('#chatbro_send'));	
 	if(lastid) if(LastUpdate != lastid)
 	{
 		LastUpdate = lastid;
+		sessionStorage.setItem('LastUpdate',LastUpdate);
 		if (NewMessages)
 		{
 			Sound.Play('notify');
 		}
 		NewMessages = false;
+	}else
+	{
+		if (localStorage.getItem('Messages') !== null && $("#main").html()=="")
+		{
+			$("#main").append(localStorage.getItem('Messages'));
+		}
 	}
+	localStorage.setItem('Messages', $("#main").html());		
 }
 //------------------------------------------------------------------------------
 // Output messages log
@@ -159,26 +177,6 @@ function stripslashes(str)
 	return str.replace(/\\'/g,'\'').replace(/\\"/g,'"').replace(/\\0/g,'\0').replace(/\\\\/g,'\\');
 }
 
-function LogEvent(text,id,priv)
-{
-
-	NewMessages = true;
-	if (priv==2)
-	{
-		LogEventPrivate(text,id,priv)
-	}
-	$("#main").append("<div>"+text+"</div>");
-	$('#contentr').append($('#chatbro_send'));
-}
-function LogMessage(id,time,nick,msg,color,priv)
-{
-	var html = "";
-	if(time) html += "<span class='date'><img onclick=\"javascript:DeleteMessage.To('"+id+"')\" class='overlay' src='./ext/aleksey/chat/media/delete_ico.jpg'/>"+time+"</span>&nbsp;";
-	if(nick) html += "[<a href='#' onclick=\"javascript:MessageEdit.To('"+addslashes(nick)+"'); return false;\">"+nick+"</a>]&nbsp;";
-	if(color) html += "<span style='color:#"+color+"'>"+msg+"</span>"; else html += msg;
-	LogEvent(html, id,priv);
-	$('#main').scrollTop(999999);
-}
 function LogMessageMini(id,time,nick,msg,color)
 {
 	if (id>=1)
@@ -197,20 +195,8 @@ function LogMessageMini(id,time,nick,msg,color)
 	$("#usersmini").append("<div>"+html+"</div>")
 
 	Sound.Play('notify');
-	LogMessage(id,time,nick,msg,color);
 	SetLastId(id);
 }
-function LogUserJoin(id,time,nick)
-{	//alert("вход LogUserJoin");
-	LogEvent("<span class='date'>"+time+"</span> {L_USER_JOINED} [<a href='#' onclick=\"javascript:MessageEdit.To('"+addslashes(nick)+"'); return false;\">"+nick+"</a>]");
-}
-
-function LogUserLeft(id,time,nick)
-{
-	//alert("вход LogUserLeft");
-	LogEvent("<span class='date'>"+time+"</span> {L_USER_LEFT} [<a href='#' onclick=\"javascript:MessageEdit.To('"+addslashes(nick)+"'); return false;\">"+nick+"</a>]");
-}
-
 function SetUsers(users)
 {
 	//alert("SetUsers   ");
@@ -360,12 +346,11 @@ MessageEdit =
 			top: (toppoz),
 			height:"5px",
 			width: "5px", 	
-		}, 1700,function() {
-			$("#message_chat").val(Message+" "+s).focus();
-			$("#message_chat").focus();
-			$(this).remove();
-		}
+		}, 1700, function(){$(this).remove()}
 		);
+		$("#message_chat").val(Message+" "+s).focus();
+		$("#message_chat").focus();
+		
 	},
 	SendClick: function()
 	{

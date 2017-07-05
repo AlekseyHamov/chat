@@ -212,16 +212,6 @@ else
 					$color = addslashes($row['color']);
 					$time = addslashes($this->user->format_date($row['time'], "H:i", true));
 					$text = trim($row['text']);
-					if($text == MSG_JOIN)
-					{
-						$textscript.= "<script>LogUserJoin($msg_id, '$time', '$username');\n</script>";
-						continue;
-					}
-					if($text == MSG_LEFT)
-					{
-						$textscript.= "<script>LogUserLeft($msg_id, '$time', '$username');\n</script>";
-						continue;
-					}
 					
 					// Handle private messages
 					$show = true;
@@ -258,9 +248,15 @@ else
 					}
 					$text = str_replace("to [".$this->user->data['username']."]", "<span class=\"to\">to [".$this->user->data['username']."]</span>", $text);
 					$text = addslashes(str_replace(array("\r", "\n"), ' ', $text));
-					$textscript.= "<script>LogMessage($msg_id, '$time', '$username', '$text', '$color', '$priv');</script>";
+					//$textscript.= "<script>LogMessage($msg_id, '$time', '$username', '$text', '$color', '$priv');</script>";
+					$html .="<div>";
+					$html .= "<span class=\'date\'><img onclick=\"javascript:DeleteMessage.To($msg_id)\" class=\'overlay\' src=\'./ext/aleksey/chat/media/delete_ico.jpg\'/>$time</span>&nbsp;";
+					$html .= "[<a href=\'#\' onclick=\"javascript:MessageEdit.To(\'$username\'); return false;\">$username</a>]&nbsp;";
+					$html .= "<span style=\'color:#$color\'>$text</span>";
+					$html .="</div>";
 				}
-				$textscript.="<script>SetLastId($last_id);</script>";
+				//$textscript.= "<script>LogMessages('$html');</script>";
+				$textscript.="<script>SetLastId($last_id,'$html');</script>";
 				echo(trim($textscript));
 
 				// Delete obsolete messages

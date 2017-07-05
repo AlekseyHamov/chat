@@ -32,6 +32,7 @@ function testDiv(){
 
 	if(isMobile.any()){
 		$('.chat_chat').height('95%');
+		$('.chat_chat').width('100%');
 		var elm = document.getElementsByClassName('chat_chat');
 		for (i = 0; i < elm.length; i++) {
 			elm[i].style.position='fixed';
@@ -42,6 +43,7 @@ function testDiv(){
 	}else 
 	{
 		$('#draggable').height('350px');
+		$('#draggable').width('550px');
 		var HeightPos = Math.max(window.innerHeight,0) - 390 ;
 		var elm = document.getElementsByClassName('chat_chat');
 		for (i = 0; i < elm.length; i++) {
