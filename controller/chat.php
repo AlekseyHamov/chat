@@ -180,7 +180,7 @@ else
 					while ($row = $this->db->sql_fetchrow($result))
 					{
 						$code=$row['code'];
-						$textscript_smilies.='<a href="#" onclick=\'javascript:MessageEdit.Smilie("'.$code.'","'.$row['smiley_id'].'"); return false;\' ><img id="smilie'.$row['smiley_id'].'" style="position: absolute;" height="20" width="20" src="./images/smilies/' . $row['smiley_url'] . '" alt="'.$row['code'].'" title="' . $row['emotion'] . '" /></a>';
+						$textscript_smilies.='<a href="#" onclick=\'javascript:MessageEdit.Smilie("'.$code.'","'.$row['smiley_id'].'"); return false;\'><img id="smilie'.$row['smiley_id'].'" style="position: absolute;" height="20" width="20" src="./images/smilies/' . $row['smiley_url'] . '" alt="'.$row['code'].'" title="' . $row['emotion'] . '" /></a>';
 					}
 					$textscript.=$textscript_smilies;
 					$textscript.="<script>tagcanvas_div()</script>";

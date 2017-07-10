@@ -149,7 +149,10 @@ function SetLastId(lastid,Messages)
 	if(lastid) if(LastUpdate != lastid)
 	{
 		LastUpdate = lastid;
-		sessionStorage.setItem('LastUpdate',LastUpdate);
+		if ($("#main").html()=="")
+		{
+			sessionStorage.setItem('LastUpdate',0);
+		}else{sessionStorage.setItem('LastUpdate',LastUpdate);} 
 		if (NewMessages)
 		{
 			Sound.Play('notify');
@@ -157,12 +160,12 @@ function SetLastId(lastid,Messages)
 		NewMessages = false;
 	}else
 	{
-		if (localStorage.getItem('Messages') !== null && $("#main").html()=="")
+		if (sessionStorage.getItem('Messages') !== null && $("#main").html()=="")
 		{
-			$("#main").append(localStorage.getItem('Messages'));
+			$("#main").append(sessionStorage.getItem('Messages'));
 		}
 	}
-	localStorage.setItem('Messages', $("#main").html());		
+	sessionStorage.setItem('Messages', $("#main").html());		
 }
 //------------------------------------------------------------------------------
 // Output messages log
