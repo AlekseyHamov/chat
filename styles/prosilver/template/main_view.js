@@ -8,7 +8,7 @@ function hideShowDivChat(){
 			height:"40px",
 			width:"40px",
 		}, 600);
-		$('.chat_chat').hide(700);
+		$('.chat_chat').hide(600);
 		$('#minichat').show();
 		localStorage.setItem('statusdivchat', 'hide');
 		SetDelay(null);
@@ -26,9 +26,9 @@ function ShowSmilies(){
 		$('#tagCloudContainer').toggle();
 }
 function testDiv(){
-//	$('#draggable').show();
 	$('#draggable').show();
 	$('#minichat').hide();
+	$('#minichat_window_mesage').hide();
 
 	if(isMobile.any()){
 		$('.chat_chat').height('95%');
@@ -42,8 +42,8 @@ function testDiv(){
 		$('#inner_head_chat_close').width('30px'); 
 	}else 
 	{
-		$('#draggable').height('350px');
-		$('#draggable').width('550px');
+//		$('#draggable').height('350px');
+//		$('#draggable').width('550px');
 		var HeightPos = Math.max(window.innerHeight,0) - 390 ;
 		var elm = document.getElementsByClassName('chat_chat');
 		for (i = 0; i < elm.length; i++) {
@@ -64,11 +64,22 @@ function testDiv(){
 			{
 				elm[i].style.width= Math.max(localStorage.getItem('rwidth')) + 'px';
 			}
-
 		}
-	}
+		$("#main").removeClass('main');
+		$("#main").addClass('main');
+		$("#contentr").css({
+			'height':''  			
+		})	
+		$("#contentr").removeClass('contentr');
+		$("#contentr").addClass('contentr');		
+		$(".users").show(600);
+		$(".headercaht").show(600);
+		$(".chatbro_send").show(600);
+		$(".chat_chat").css({
+			'opacity':'1'
+		})
 
-    $("#main" ).scrollTop = 9999;
+	}
 	$(".chat_chat").draggable({	
 			stop: function(event, ui) {
 			localStorage.setItem('dleft', ui.offset.left);
@@ -76,7 +87,7 @@ function testDiv(){
 			}
 		});
 	$(".chat_chat").resizable({
-		minHeight: 250,
+		minHeight: 150,
 		minWidth: 250,
 		stop: function(event, ui) {
 		localStorage.setItem('rheight', ui.size.height);
@@ -85,13 +96,42 @@ function testDiv(){
     });
 	$(".chat_chat").ghost= true;
 	localStorage.setItem('statusdivchat', 'show');
-	RefreshChat();
 	SetDelay(15);
+	
 	if (localStorage.getItem('ChatSmilies') !== null)
 	{
 		$('div#tagCloud').html(localStorage.getItem('ChatSmilies'));
 	}else{RefreshChatSmilies();}
+	
 }
+function ShowHideUsersMain(){
+	if(!isMobile.any()){
+		$("#main").removeClass('main');
+		$("#main").addClass('mainhide');
+		$("#contentr").css({
+			'height':'inherit'  			
+		})
+		$(".users").hide(600);
+		$(".headercaht").hide(600);
+		$(".chatbro_send").hide(600);
+		$(".chat_chat").animate({
+			left: "10px", 	
+			top: "85%",
+			height:"80px",
+			width:"450px",
+			opacity:"0.75",
+		},1);
+		$("#main" ).scrollTop(999999)
+		localStorage.setItem('statusdivchat', 'showmini');
+}
+}
+		$( "#main" ).hover(
+		  function() {
+			if(!isMobile.any()){
+				testDiv();
+			}
+		  }
+		);
 var isMobile = {
     Android: function() {
         return navigator.userAgent.match(/Android/i);

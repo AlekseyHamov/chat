@@ -6,17 +6,13 @@
 	background: rgb(71, 77, 91); 
 	height: 40px; 
 	width:40px;
-
     left: 10px; /* Расстояние от правого края окна браузера */
 	top: -moz-calc(100% - 60px);
 	top: -webkit-calc(100% - 60px);
 	top: calc(100% - 60px); /* Расстояние сверху */
-
     border: 1px solid #333; /* Параметры рамки */ 	
-
 	text-align: left;
 	font-size: 12px;
-
 }
 .minichat_window_mesage
 {
@@ -89,7 +85,7 @@
 	background-color: whitesmoke; 
 	outline: 1px solid black;
 	z-index:9990;
-	height: 500px; 
+	height: 100px; 
 	width: 700px;
 	position: absolute;
 	}
@@ -128,6 +124,18 @@
 	max-width: -moz-calc(100% - 120px);
 	max-width: -webkit-calc(100% - 120px);
 	max-width:calc(100%-120px);  
+	height: inherit; 
+	width: inherit; 
+	float: left;
+	position: relative; 
+	text-align: left;
+	font-size: 12px;
+}
+.mainhide
+{
+	background-color: inherit;
+	bottom: 0;
+	overflow-y: scroll; 
 	height: inherit; 
 	width: inherit; 
 	float: left;

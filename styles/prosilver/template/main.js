@@ -29,9 +29,9 @@ function RefreshChat()
 	//InProgress = true;
 	ShowIcon("loading");
 	var VisiblemesFlag = '';
-	if ($('#main').scrollTop()) 
+	if ($('.main').scrollTop()) 
 	{
-		scrolold = $('#main').scrollTop() ;
+		scrolold = $('.main').scrollTop() ;
 		localStorage.setItem('scrolold', scrolold);
 	}else scrolold = 9999999;
 	if (localStorage.getItem('scrolold') !== null && localStorage.getItem('scrolold')>0)
@@ -55,7 +55,7 @@ function RefreshChat()
 		UpdateCount++;
 		$('div#result_div').html(js);
 		$("#upd_counter").text(UpdateCount);
-		$('#main').scrollTop(scrolold);
+		$('.main').scrollTop(scrolold);
 	})
 	.fail(function()
 	{
@@ -73,7 +73,7 @@ function RefreshChatSmilies()
 	$.ajax({
 		type: 		"POST",
 		url: 		"chat",
-		data: 		{"action":"smilie", "lastid":LastUpdate},
+		data: 		{"action":"smilie"},
 		cache:		false,
 		timeout:	15000,
   	})
@@ -101,7 +101,7 @@ function RefreshChatMini()
 	{	
 		$('#minichat_window_mesage').hide('slow');
 		$('div#result_div').html(js);
-		$('#minichat_window_mesage').scrollTop(99999);
+		$('#minichat_window_mesage').scrollTop(999999);
 	})
 	.fail(function()
 	{
@@ -135,7 +135,7 @@ function SendMessage(text, color)
 		//alert("Выполнен js SendMessage");
 		ShowIcon("none");
 		RefreshChat();
-		$('#main').scrollTop(99999);
+		$('.main').scrollTop(9999999);
 	})
 	.fail(function()
 	{
@@ -145,7 +145,7 @@ function SendMessage(text, color)
 function SetLastId(lastid,Messages)
 {
 	$("#main").append(Messages);
-	$('#contentr').append($('#chatbro_send'));	
+//	$('#contentr').append($('#chatbro_send'));	
 	if(lastid) if(LastUpdate != lastid)
 	{
 		LastUpdate = lastid;
@@ -153,10 +153,10 @@ function SetLastId(lastid,Messages)
 		{
 			sessionStorage.setItem('LastUpdate',0);
 		}else{sessionStorage.setItem('LastUpdate',LastUpdate);} 
-		if (NewMessages)
-		{
+//		if (NewMessages)
+//		{
 			Sound.Play('notify');
-		}
+//		}
 		NewMessages = false;
 	}else
 	{
@@ -259,7 +259,7 @@ function SetDelay(delay)
 		}
 			localStorage.setItem('ChatDelay', ChatDelay);
 			if (ChatTimer>=0) clearInterval(ChatTimer);
-			ChatTimer = setInterval('RefreshChat()', ChatDelay*1000); 
+			ChatTimer = setInterval('RefreshChat();ShowHideUsersMain();', ChatDelay*1000); 
 			clearInterval(ChatTimerMini);
 	}else if($('#minichat').is(':visible'))  
 	{clearInterval(ChatTimer);

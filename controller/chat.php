@@ -171,9 +171,7 @@ else
 				}
 			exit;
 			case ACT_SMILIE:
-				$last_id = $this->request->variable('lastid', 0);
-				if ($last_id==0)
-				{
+
 					$sql = 'SELECT * FROM ' . SMILIES_TABLE . '	ORDER BY LENGTH(code) DESC';
 					$result = $this->db->sql_query($sql, 600);
 					$textscript_smilies="";
@@ -185,7 +183,6 @@ else
 					$textscript.=$textscript_smilies;
 					$textscript.="<script>tagcanvas_div()</script>";
 					echo(trim($textscript));
-				}				
 			exit;
 			case ACT_SYNC:
 				// Users list
@@ -243,7 +240,6 @@ else
 						$text = (string) $message_parser->message;
 						unset($message_parser);
 						$text = str_replace("<a ", "<a target='_blank' ", $text);
-						
 						$text = str_replace("{SMILIES_PATH}", "./images/smilies/", $text);			
 					}
 					$text = str_replace("to [".$this->user->data['username']."]", "<span class=\"to\">to [".$this->user->data['username']."]</span>", $text);
@@ -334,7 +330,6 @@ else
 						$text = (string) $message_parser->message;
 						unset($message_parser);
 						$text = str_replace("<a ", "<a target='_blank' ", $text);
-						
 						$text = str_replace("{SMILIES_PATH}", "./images/smilies/", $text);			
 					}
 					$text = str_replace("to [".$this->user->data['username']."]", "<span class=\"to\">to [".$this->user->data['username']."]</span>", $text);
@@ -352,7 +347,6 @@ else
  				$textscript.= "SetLastId(1);\n";
 				$textscript.= "	document.getElementById('main').innerHTML='';\n";
 				$textscript.= "RefreshChat();\n";
-
 				$textscript.="</script>";			
 				//$textscript.=$sql;
 				echo(trim($textscript));
