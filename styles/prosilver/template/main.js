@@ -244,7 +244,7 @@ var ChatTimerMini = -1;
 
 function SetDelay(delay)
 {
-	if ($('#draggable').is(':visible'))
+	if ($('#draggable').is(':visible') )
 	{
 		if (delay == null)
 		{
@@ -257,16 +257,16 @@ function SetDelay(delay)
 		{
 			ChatDelay = delay;
 		}
-			localStorage.setItem('ChatDelay', ChatDelay);
-			if (ChatTimer>=0) clearInterval(ChatTimer);
-			ChatTimer = setInterval('RefreshChat();ShowHideUsersMain();', ChatDelay*1000); 
-			clearInterval(ChatTimerMini);
+		localStorage.setItem('ChatDelay', ChatDelay);
+		if (ChatTimer>=0) clearInterval(ChatTimer);
+		ChatTimer = setInterval('RefreshChat();ShowHideUsersMain();', ChatDelay*1000); 
+		clearInterval(ChatTimerMini);
 	}else if($('#minichat').is(':visible'))  
-	{clearInterval(ChatTimer);
-			if (ChatTimerMini>=0 ) clearInterval(ChatTimerMini);
-			ChatTimerMini = setInterval(function(){
-				RefreshChatMini();
-			}, 5000); 
+	{	clearInterval(ChatTimer);
+		if (ChatTimerMini>=0 ) clearInterval(ChatTimerMini);
+		ChatTimerMini = setInterval(function(){
+			RefreshChatMini();
+		}, 5000); 
 	}
 }
 function tagcanvas_div()

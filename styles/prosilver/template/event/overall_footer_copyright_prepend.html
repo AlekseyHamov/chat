@@ -5,28 +5,33 @@
 			if (localStorage.getItem('statusdivchat')!==null)
 			{
 				statusdivchat=localStorage.getItem('statusdivchat');
-				if ( statusdivchat!=="hide" ) {
-						testDiv();
-						if ( statusdivchat=="showmini" )
-						{
-							ShowHideUsersMain();
-						}
+				if ( statusdivchat=="show" ) {
+						testDiv.to();
+						testDiv.all();
 						RefreshChat();
-					} else {hideShowDivChat();};			
+					}
+				else if ( statusdivchat=="showmini" )
+					{
+						$('#draggable').show();
+						RefreshChat();
+						ShowHideUsersMain();
+					}
+				else 
+				{hideShowDivChat();}
 			} else {hideShowDivChat();};
 		}
 		document.addEventListener("DOMContentLoaded", showonloadchat);
 	</script>
-		<div id="minichat_window_mesage" class="minichat_window_mesage" onclick="testDiv();RefreshChat();" style="overflow-y: scroll; display: none;"> 
+		<div id="minichat_window_mesage" class="minichat_window_mesage" onclick="testDiv.to();testDiv.all();RefreshChat();" style="overflow-y: scroll; display: none;"> 
 				<div id="usersmini" class="usersmini" ></div>
 		</div>	
-		<div id="minichat" class="minichat" onclick="testDiv();RefreshChat();" > 
+		<div id="minichat" class="minichat" onclick="testDiv.to();testDiv.all();RefreshChat();" > 
 			<span class="innerchat">{L_CHAT}</span>
 		</div>
 		
 		<div id="draggable" class="chat_chat" style="display: none;">
 			<div id ="contentr" >
-				<div class="headercaht">
+				<div class="headercaht" style="display: none;">
 					<div onclick="ShowChatMenu();" class="inner_head_chat_menu " >
 					<img style="height: inherit;" src="./ext/aleksey/chat/media/menu_icon.png" title="{L_MENU}" alt="{L_MENU}"/>	
 						<div id="chat_menu" class="chat_menu">
@@ -41,8 +46,8 @@
 					</div>
 				</div>																				
 				<div id="main" class="main" ></div>
-				<div id="users" class="users" ></div>
-				<div id="chatbro_send"  class="chatbro_send">
+				<div id="users" class="users" style="display: none;"></div>
+				<div id="chatbro_send"  class="chatbro_send" style="display: none;">
 					<div class="chatbro_send_text">
 						<textarea id="message_chat" name="comment" cols="40" rows="2" maxlength="250" style="border-radius: 3px; width: 100%;"></textarea>
 					</div>
