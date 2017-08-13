@@ -9,11 +9,19 @@
 						testDiv.to();
 						testDiv.all();
 						RefreshChat();
+						SetDelay(15);
 					}
 				else if ( statusdivchat=="showmini" )
 					{
 						$('#draggable').show();
+						var elm = document.getElementsByClassName('chat_chat');
+						for (i = 0; i < elm.length; i++) {
+							elm[i].style.position='fixed';
+							elm[i].style.top= '95%';
+							elm[i].style.left= '50px';
+						};						
 						RefreshChat();
+						SetDelay(15);
 						ShowHideUsersMain();
 					}
 				else 

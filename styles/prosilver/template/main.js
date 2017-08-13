@@ -29,14 +29,15 @@ function RefreshChat()
 	//InProgress = true;
 	ShowIcon("loading");
 	var VisiblemesFlag = '';
-	if ($('.main').scrollTop()) 
+//	if ($("#main" ).scrollTop()) 
+//	{
+//		scrolold = $("#main" ).scrollTop() ;
+//		sessionStorage.setItem('scrolold', scrolold);
+//	}else 
+	scrolold = 99999999;
+	if (sessionStorage.getItem('scrolold') !== null && sessionStorage.getItem('scrolold')>0)
 	{
-		scrolold = $('.main').scrollTop() ;
-		localStorage.setItem('scrolold', scrolold);
-	}else scrolold = 9999999;
-	if (localStorage.getItem('scrolold') !== null && localStorage.getItem('scrolold')>0)
-	{
-		scrolold= Math.round(localStorage.getItem('scrolold'));
+		scrolold= Math.round(sessionStorage.getItem('scrolold'));
 	}
 //	alert("вход в рефреш"+scrolold);
 	$.ajax({
@@ -55,7 +56,7 @@ function RefreshChat()
 		UpdateCount++;
 		$('div#result_div').html(js);
 		$("#upd_counter").text(UpdateCount);
-		$('.main').scrollTop(scrolold);
+		$("#main" ).scrollTop(scrolold);
 	})
 	.fail(function()
 	{
@@ -101,7 +102,7 @@ function RefreshChatMini()
 	{	
 		$('#minichat_window_mesage').hide('slow');
 		$('div#result_div').html(js);
-		$('#minichat_window_mesage').scrollTop(999999);
+		$('#minichat_window_mesage').scrollTop(9999999);
 	})
 	.fail(function()
 	{
@@ -135,7 +136,7 @@ function SendMessage(text, color)
 		//alert("Выполнен js SendMessage");
 		ShowIcon("none");
 		RefreshChat();
-		$('.main').scrollTop(9999999);
+		$("#main" ).scrollTop(9999999);
 	})
 	.fail(function()
 	{
@@ -173,11 +174,6 @@ function SetLastId(lastid,Messages)
 function addslashes(str)
 {
 	return str.replace(/\\/g,'\\\\').replace(/\'/g,'\\\'').replace(/\"/g,'\\"').replace(/\0/g,'\\0');
-}
-
-function stripslashes(str)
-{
-	return str.replace(/\\'/g,'\'').replace(/\\"/g,'"').replace(/\\0/g,'\0').replace(/\\\\/g,'\\');
 }
 
 function LogMessageMini(id,time,nick,msg,color)
@@ -244,7 +240,7 @@ var ChatTimerMini = -1;
 
 function SetDelay(delay)
 {
-	if ($('#draggable').is(':visible') )
+	if ($('#draggable').is(':visible'))
 	{
 		if (delay == null)
 		{
@@ -259,7 +255,14 @@ function SetDelay(delay)
 		}
 		localStorage.setItem('ChatDelay', ChatDelay);
 		if (ChatTimer>=0) clearInterval(ChatTimer);
-		ChatTimer = setInterval('RefreshChat();ShowHideUsersMain();', ChatDelay*1000); 
+		ChatTimer = setInterval(function()
+			{
+				RefreshChat();
+				if(!$('#draggable').is(':hover'))
+				{
+					ShowHideUsersMain();	
+				}
+			},ChatDelay*1000); 
 		clearInterval(ChatTimerMini);
 	}else if($('#minichat').is(':visible'))  
 	{	clearInterval(ChatTimer);
@@ -520,64 +523,3 @@ jQuery(function($)
 		return false;
 	});
 });
-
-function insert_text_img(text, spaces, popup) {
-	var textarea;
-
-	if (!popup) {
-		textarea = document.forms[form_name].elements[text_name];
-	} else {
-		textarea = opener.document.forms[form_name].elements[text_name];
-	}
-
-	if (spaces) {
-		text = ' ' + text + ' ';
-	}
-
-	// Since IE9, IE also has textarea.selectionStart, but it still needs to be treated the old way.
-	// Therefore we simply add a !is_ie here until IE fixes the text-selection completely.
-	if (!isNaN(textarea.selectionStart) && !is_ie) {
-		var sel_start = textarea.selectionStart;
-		var sel_end = textarea.selectionEnd;
-
-		mozWrap(textarea, text, '');
-		textarea.selectionStart = sel_start + text.length;
-		textarea.selectionEnd = sel_end + text.length;
-	} else if (textarea.createTextRange && textarea.caretPos) {
-		if (baseHeight !== textarea.caretPos.boundingHeight) {
-			textarea.focus();
-			storeCaret(textarea);
-		}
-
-		var caret_pos = textarea.caretPos;
-		caret_pos.text = caret_pos.text.charAt(caret_pos.text.length - 1) === ' ' ? caret_pos.text + text + ' ' : caret_pos.text + text;
-	} else {
-		textarea.value = textarea.value + text;
-	}
-
-	if (!popup) {
-		textarea.focus();
-	}
-}
-function LogEventPrivate(text,id,priv)
-{
-		var $draggable = $("#draggable");
-		var $contentr = $("#contentr");
-		var $headercaht = $("#headercaht");
-		var $main = $("#main");
-		var $chatbro_send = $("#chatbro_send");
-//		$toClone.prop('id', 'draggable_private');
-		$draggable.clone().insertAfter("#draggable").prop('id', 'draggable_private');
-//		$('#contentr_private').append($('#chatbro_send'));
-//		testDiv();
-		$('#draggable_private').show();
-		$(".chat_chat").draggable();
-		$(".chat_chat").resizable({
-			minHeight: 250,
-			minWidth: 250,
-		});
-		$('#main:last').prop('id', 'main_private');
-		$('#main_private:last').empty();
-		$("#main_private:last").append("<div>"+text+"</div>");
-	//	$contentr.clone().append("<div>"+text+"</div>");//('#draggable_private:last').prop('id', 'contentr_private');
-}

@@ -47,7 +47,6 @@ testDiv=
 		$('#inner_head_chat_close').width('30px'); 
 	}else 
 	{
-		
 		testDiv.position();
 		$("#main").removeClass('main');
 		$("#main").addClass('main');
@@ -70,6 +69,7 @@ testDiv=
 			localStorage.setItem('dtop', ui.offset.top);
 			}
 		});
+//	$(".main").draggable("disable");	
 	$(".chat_chat").resizable({
 		minHeight: 150,
 		minWidth: 250,
@@ -80,7 +80,7 @@ testDiv=
     });
 	$(".chat_chat").ghost= true;
 	localStorage.setItem('statusdivchat', 'show');
-	SetDelay(15);
+//	SetDelay(15);
 	
 	if (localStorage.getItem('ChatSmilies') !== null)
 	{
@@ -97,22 +97,26 @@ testDiv=
 			{
 				elm[i].style.top= Math.max(localStorage.getItem('dtop')) + 'px';
 			}else{elm[i].style.top= HeightPos + 'px';}
+			
 			if (localStorage.getItem('dleft') !== null && localStorage.getItem('dleft')>0 && localStorage.getItem('dleft')< Math.max(window.innerWidth,0)-30)
 			{
 				elm[i].style.left= Math.max(localStorage.getItem('dleft')) + 'px';
 			}else{elm[i].style.left= '5px';}
+			
 			if (localStorage.getItem('rheight') !== null)
 			{
 				elm[i].style.height= Math.max(localStorage.getItem('rheight')) + 'px';
-			}
+			}else{elm[i].style.height=250+'px'} 
+			
 			if (localStorage.getItem('rwidth') !== null)
 			{
 				elm[i].style.width= Math.max(localStorage.getItem('rwidth')) + 'px';
-			}
+			}else{elm[i].style.width=450+'px'}
 		}
 	},
 }
 function ShowHideUsersMain(){
+	sessionStorage.setItem('scrolold', 99999999);
 	st=localStorage.getItem('statusdivchat');
 	if(!isMobile.any() && st!=='hide'){
 		$('#minichat').hide();
@@ -132,21 +136,16 @@ function ShowHideUsersMain(){
 			width:"450px",
 			opacity:"0.75",
 		},1500);
-		$("#main" ).scrollTop(999999)
+		$("#main" ).scrollTop(99999999);
 		localStorage.setItem('statusdivchat', 'showmini');
 }
 }
-		$( "#main" ).hover(
+		$( "#draggable" ).hover(
 		  function() {
 			if(!isMobile.any()){
 				testDiv.to();
-			}
-		  }
-		);
-		$( "#chatbro_send" ).hover(
-		  function() {
-			if(!isMobile.any()){
-				testDiv.to();
+				scrolold = $("#main" ).scrollTop() ;
+				sessionStorage.setItem('scrolold', scrolold);
 			}
 		  }
 		);

@@ -75,10 +75,6 @@
 	padding-left:5px;
 	border-radius: 0 5px 5px 5px;
     }
-#divchat
-{
-	display: none;
-}
 @media screen 
 {.chat_chat {
 	display: none;
@@ -135,7 +131,7 @@
 {
 	background-color: inherit;
 	bottom: 0;
-	overflow-y: scroll; 
+	overflow-y: scroll;
 	height: inherit; 
 	width: inherit; 
 	float: left;
